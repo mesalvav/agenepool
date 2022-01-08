@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.dynamicsfromflorida.com.entity.Textfile;
 import com.dynamicsfromflorida.com.repository.TextfileRepository;
+import com.dynamicsfromflorida.com.utility.FileToFromAWS;
 import com.dynamicsfromflorida.com.utility.FileUploadUtil;
 import com.dynamicsfromflorida.com.entity.Textfile;
 
@@ -25,7 +26,10 @@ import com.dynamicsfromflorida.com.entity.Textfile;
 public class FileuploadController {
 	
 	 	@Autowired
-	    private TextfileRepository repo;	
+	    private TextfileRepository repo;
+	 	
+	 	@Autowired
+	 	private FileToFromAWS fileToFromAWS;
 	
 	 Logger logger = LoggerFactory.getLogger(FileuploadController.class);
 
@@ -68,7 +72,8 @@ public class FileuploadController {
 	        //String uploadDir = "user-photos/" + savedUser.getId();
 	 
 	         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-	         
-	        return new RedirectView("/", true);
+	         fileToFromAWS.saveFile(uploadDir, multipartFile);
+
+	         return new RedirectView("/", true);
 	    }
 }
