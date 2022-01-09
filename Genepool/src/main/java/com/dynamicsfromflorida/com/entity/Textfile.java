@@ -18,8 +18,8 @@ public class Textfile {
 	@Column(nullable = false)
 	private String filename;
 	
-	//@Column(nullable = false)
-	//private String filepath;
+	
+	private String urlOutputFileName;
 	
 
 	protected Textfile() {
@@ -54,4 +54,12 @@ public class Textfile {
 		this.filepath = filepath;
 	}
 	*/
+
+	public String getUrlOutputFileName() {
+		return urlOutputFileName;
+	}
+
+	public void setUrlOutputFileName(String urlOutputFileName) {
+		this.urlOutputFileName = urlOutputFileName;
+	}
 }

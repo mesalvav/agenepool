@@ -46,27 +46,36 @@
 
                 <button class="btn btn-primary" type="submit">Submit form</button>
             </form>
-            <div>== === === </div>
+            
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12 mt-5">
+        
+        <div>== === === </div>
             <div th:if="${not #lists.isEmpty(textfiles)}">
         <h2>Product List</h2>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>URL of result</th>
                 
             </tr>
             <tr th:each="textfilex : ${textfiles}">
                 <td th:text="${textfilex.id}"></td>
                 <td th:text="${textfilex.getFilename()}"></td>
                 
+                <td><a th:href="${textfilex.getUrlOutputFileName()}">Download result</a></td>
             </tr>
         </table>
         <div>== === === </div>
     </div>
 
-        </div>
+        
+		</div>
     </div>
-
 </main>
 <!-- /.container -->
 

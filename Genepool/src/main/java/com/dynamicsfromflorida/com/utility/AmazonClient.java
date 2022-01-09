@@ -48,10 +48,18 @@ public class AmazonClient {
        this.s3client = 
     		   AmazonS3ClientBuilder.standard().withRegion("us-east-2")
     		   .withCredentials(new AWSStaticCredentialsProvider(creds)).build();
+       // this.s3client.setBucketAcl(this.bucketName,CannedAccessControlList.PublicRead);
+       
     }
 
 	public void putObject(String fileName, File file) {
-		this.s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
-	           // .withCannedAcl(CannedAccessControlList.PublicRead));
+		//this.s3client.setBucketAcl(this.bucketName,CannedAccessControlList.PublicRead);
+		
+		this.s3client
+		.putObject(
+				new PutObjectRequest(bucketName, fileName, file)
+				.withCannedAcl(CannedAccessControlList.PublicRead)
+				);
+		// this.s3client.putObject(bucketName, fileName, file);
 	}
 }

@@ -26,18 +26,25 @@ public class FileToFromAWS {
 	public String saveFile(String uploadDir, MultipartFile multipartFile) throws IOException {
         
 		String fileUrl = "";
+		String generatedfileName = "";
+		String resultFileURL = "";
 	    try {
 	    	File file = convertMultiPartToFile(multipartFile);
 	    	
-	        String fileName = generateFileName(multipartFile);
-	        
+	        generatedfileName = generateFileName(multipartFile);
+	        String fileName = "inputgenecode/" + generatedfileName;
 	        fileUrl = s3client.getEndpointUrl() + "/" + s3client.getBucketName() + "/" + fileName;
+	        
+	        resultFileURL = 
+	        		s3client.getEndpointUrl() + "/" + s3client.getBucketName() + "/outputgenecode/" + generatedfileName;
+	        
 	        uploadFileTos3bucket(fileName, file);
 	        file.delete();
 	    } catch (Exception e) {
 	       e.printStackTrace();
 	    }
-	    return fileUrl;
+	    // TODO: add array or tupled [urlfile, generatedFileName]
+	    return resultFileURL;
     }
 	
 	private File convertMultiPartToFile(MultipartFile file) throws IOException {

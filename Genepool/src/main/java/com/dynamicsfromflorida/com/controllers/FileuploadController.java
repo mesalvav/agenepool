@@ -54,7 +54,7 @@ public class FileuploadController {
 	        
 	        Random ran = new Random();
 	        Integer morethan100 = 101 + ran.nextInt(897);
-	        fileName =  morethan100 + "_" + fileName;
+	        // fileName =  morethan100 + "_" + fileName;
 	        fileName = StringUtils.cleanPath(fileName);
 	        
 	        logger.warn("This is a WARN message.");
@@ -64,16 +64,13 @@ public class FileuploadController {
 	        
 	        String uploadDir = "Archivos";
 	        
-	        textfile.setFilename(fileName);
-	      
-	         Textfile savedTextFile = repo.save(textfile);
+	        String urlOutputFileName = fileToFromAWS.saveFile(uploadDir, multipartFile);
 	        
-	 
-	        //String uploadDir = "user-photos/" + savedUser.getId();
-	 
-	         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-	         fileToFromAWS.saveFile(uploadDir, multipartFile);
-
-	         return new RedirectView("/", true);
+	        textfile.setFilename(fileName);
+	        textfile.setUrlOutputFileName(urlOutputFileName);
+	        
+	        Textfile savedTextFile = repo.save(textfile);
+	         
+	        return new RedirectView("/", true);
 	    }
 }
